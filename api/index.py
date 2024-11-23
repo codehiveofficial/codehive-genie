@@ -41,12 +41,12 @@ def genie():
         if not user_query:
             return jsonify({'error': 'Query parameter is required.'}), 400
 
-        # Check if the input is in English
-        # detected_language = detect(user_query)
-        # if detected_language != 'en':
-        #     return jsonify({'error': 'Only English language input is supported.', 'detected_language': detected_language}), 400
+        
+        detected_language = detect(user_query)
+        if detected_language != 'en':
+            return jsonify({'error': 'Only English language input is supported.', 'detected_language': detected_language}), 400
 
-        # Log the query
+        
         logging.info(f"Processing query: {user_query}")
 
         
