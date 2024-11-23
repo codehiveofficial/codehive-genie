@@ -42,19 +42,19 @@ def genie():
             return jsonify({'error': 'Query parameter is required.'}), 400
 
         # Check if the input is in English
-        detected_language = detect(user_query)
-        if detected_language != 'en':
-            return jsonify({'error': 'Only English language input is supported.', 'detected_language': detected_language}), 400
+        # detected_language = detect(user_query)
+        # if detected_language != 'en':
+        #     return jsonify({'error': 'Only English language input is supported.', 'detected_language': detected_language}), 400
 
         # Log the query
         logging.info(f"Processing query: {user_query}")
 
-        # Define fixed LLM parameters
+        
         temperature = 0.6
         max_tokens = 1500
         top_p = 0.9
 
-        # Generate response with Groq API
+        
         completion = client.chat.completions.create(
             model="llama-3.1-70b-versatile",
             messages=[
@@ -74,13 +74,13 @@ def genie():
             stream=True,
         )
 
-        # Stream response chunks to the client
+        
         def stream_response():
             response = ""
             for chunk in completion:
                 delta = chunk.choices[0].delta.content or ""
                 response += delta
-                yield delta  # Stream the chunk as it's received
+                yield delta
             logging.info("Response fully generated.")
         
         return Response(stream_response(), content_type='text/plain')
