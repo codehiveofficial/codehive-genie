@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 import logging
 from langdetect import detect, DetectorFactory
+from flask_cors import CORS
 
 
 DetectorFactory.seed = 0
@@ -23,6 +24,7 @@ client = Groq(api_key=GROQ_API_KEY)
 
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def home():
