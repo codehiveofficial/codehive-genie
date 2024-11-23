@@ -15,7 +15,7 @@ load_dotenv()
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-
+AUTH_SECRET = os.getenv('AUTH_SECRET')
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 if not GROQ_API_KEY:
     raise EnvironmentError("GROQ_API_KEY is missing. Please check your .env file.")
@@ -37,6 +37,13 @@ def genie():
     Endpoint to interact with the Groq AI model.
     Accepts a JSON payload with 'query' and validates that it's in English.
     """
+    auth_secret_fetched = request.headers.get('Authorization') or request.headers.get('authorization') or request.json.get('authorization') or request.json.get('Authorization')
+    if not auth_secret_fetched:
+        return jsonify({'error': 'Authorization header is required.'}), 401
+    
+    if auth_secret_fetched != AUTH_SECRET:
+        return jsonify({'error': 'Invalid authorization secret.'}), 401
+    
     try:
        
         user_query = request.json.get('query')
@@ -72,6 +79,7 @@ def genie():
                         "- Anything you generate should be high-quality and production-ready.\n"
                         "- Anything not related to coding or Programming should be ignored and  your reply should be formal that you are AI Assistant tuned for coding and programming purpose only and you cannot assist that just on point dont extend it.\n"
                         "- Response should be in English only.\n Response should be concise and to the point."
+                        "- Say sorry to assist for irrelevant queries that are not related to coding or programming."
                     )
                 },
                 {"role": "user", "content": user_query}
