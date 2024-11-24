@@ -51,9 +51,9 @@ def genie():
             return jsonify({'error': 'Query parameter is required.'}), 400
 
         
-        detected_language = detect(user_query)
-        if detected_language != 'en':
-            return jsonify({'error': 'Only English language input is supported.', 'detected_language': detected_language}), 400
+        # detected_language = detect(user_query)
+        # if detected_language != 'en':
+        #     return jsonify({'error': 'Only English language input is supported.', 'detected_language': detected_language}), 400
 
         
         logging.info(f"Processing query: {user_query}")
@@ -80,6 +80,7 @@ def genie():
                         "- Anything not related to coding or Programming should be ignored and  your reply should be formal that you are AI Assistant tuned for coding and programming purpose only and you cannot assist that just on point dont extend it.\n"
                         "- Response should be in English only.\n Response should be concise and to the point."
                         "- Say sorry to assist for irrelevant queries that are not related to coding or programming."
+                        "- Do not Generate code for languages other than Python, C, JavaScript, Java, TypeScript, and CPP (C plus plus)."
                     )
                 },
                 {"role": "user", "content": user_query}
