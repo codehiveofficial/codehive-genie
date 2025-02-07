@@ -1,28 +1,147 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask3&demo-title=Flask%203%20%2B%20Vercel&demo-description=Use%20Flask%203%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask3-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+# Codehive Genie 🧞‍♂️✨  
+**An AI-driven coding assistant integrated into the [Codehive](https://github.com/codehiveofficial/codehive) platform.**  
 
-# Flask + Vercel
+Codehive Genie is a Python-based Flask API that leverages advanced Large Language Models (LLMs) to provide coding assistance within the Codehive collaborative platform. It specializes in generating, debugging, and optimizing code, designed to empower developers with seamless and accurate coding support.
 
-This example shows how to use Flask 3 on Vercel with Serverless Functions using the [Python Runtime](https://vercel.com/docs/concepts/functions/serverless-functions/runtimes/python).
+---
 
-## Demo
+## ✨ Features  
 
-https://flask-python-template.vercel.app/
+### 🌟 Core Capabilities  
+- 🚀 **Code Assistance**: Generate, debug, and optimize code snippets.  
+- 🌐 **Supported Languages**: Python, C, JavaScript, Java, TypeScript, and C++ (CPP).  
+- 🔧 **High-Quality Output**: Delivers well-structured, production-ready code with inline comments and concise explanations.  
+- 🌀 **Streaming Responses**: Enables real-time responses to ensure minimal latency.  
+- ❌ **Strict Query Handling**: Ignores non-coding-related queries with polite and concise error messages.  
 
-## How it Works
+### 🔒 Security Enhancements  
+- 🌍 **Language Detection**: Ensures input is in English for consistency and accuracy.  
+- 🛡️ **Authentication**: API access secured with an `Authorization` header.  
+- 📜 **Robust Logging**: Detailed query and response logging for improved monitoring and debugging.  
 
-This example uses the Web Server Gateway Interface (WSGI) with Flask to enable handling requests on Vercel with Serverless Functions.
+### 🌐 Deployment  
+- 🖥️ **Hosted on Vercel**: Optimized deployment using Vercel's Flask template for high performance and scalability.  
 
-## Running Locally
+---
 
-```bash
-npm i -g vercel
-vercel dev
-```
+## 💻 Tech Stack  
 
-Your Flask application is now available at `http://localhost:3000`.
+### Backend  
+- 🐍 **Flask**: Lightweight and efficient framework for API development.  
+- 🤖 **Groq AI Cloud**: LLM parameterization using **Llama 3.1-70B Versatile**.  
+- 📚 **Python Libraries**:  
+  - 🔄 `flask-cors`: To handle cross-origin requests.  
+  - 🔐 `dotenv`: For secure environment variable management.  
+  - 🧩 `langdetect`: For detecting input language.  
 
-## One-Click Deploy
+### Deployment  
+- 🚀 **Vercel**: Optimized and scalable deployment with Flask templates.  
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
+---
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask3&demo-title=Flask%203%20%2B%20Vercel&demo-description=Use%20Flask%203%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask3-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+## 🌐 API Overview  
+
+### 🌍 Base URL  
+Deployed on [Vercel](https://vercel.com/):  
+
+### 📜 Endpoints  
+
+#### 1. **Home Endpoint**  
+- **GET** `/`  
+- **Description**: Basic health check for the server.  
+- **Response**:  
+```text  
+Hello, World!  
+```  
+
+#### 2. **Codehive Genie Endpoint**  
+- **POST** `/genie`  
+- **Description**: Processes user queries to provide AI-generated coding assistance.  
+
+- **Headers**:  
+  - 🔐 `Authorization`: The authorization secret key for secure access.  
+
+- **Request Body**:  
+  ```json  
+  {
+    "query": "Write a Python function to reverse a string."
+  }  
+  ```  
+
+- **Response**:  
+  - ✅ **For Valid Queries** (Streamed Response):  
+    ```plaintext  
+    def reverse_string(s):  
+        # Return the string in reverse order  
+        return s[::-1]
+    ```  
+
+  - 🚫 **For Invalid Queries**:  
+    ```json  
+    {
+      "error": "Invalid authorization secret."
+    }
+    ```  
+
+  - ⚠️ **For Non-Coding Queries**:  
+    ```plaintext  
+    Sorry, I am an AI assistant tuned for coding and programming purposes only. I cannot assist with this query.  
+    ```  
+
+---
+
+## 🛠️ Installation  
+
+### Prerequisites  
+- 🐍 **Python**: 3.8 or higher  
+- 🤖 **Groq API Key**: Available from [Groq Cloud Platform](https://groq.com/groqcloud/)  
+- 🌟 **Node.js** (optional for integration testing with Codehive)  
+
+### 🚀 Clone the Repository  
+```bash  
+git clone https://github.com/codehiveofficial/codehive-genie.git  
+cd codehive-genie  
+```  
+
+### 🔐 Set Up Environment Variables  
+Create a `.env` file in the root directory and add the following:  
+```env  
+AUTH_SECRET=<your_auth_secret>  
+GROQ_API_KEY=<your_groq_api_key>  
+```  
+
+### 📦 Install Dependencies  
+```bash  
+pip install -r requirements.txt  
+```  
+
+---
+
+## 🚦 Usage  
+
+### ▶️ Start the Server Locally  
+```bash  
+python api/index.py  
+```  
+- The server will run locally on **http://127.0.0.1:5000/** by default.  
+- You can access the **home endpoint** at **http://127.0.0.1:5000/** to verify the server is running.  
+
+---  
+
+Let me know if you need further adjustments! 🚀
+
+### 🔄 Test the API  
+- Use tools like **Postman** or **cURL** to test the `/genie` endpoint.  
+- Include the required `Authorization` header and send a JSON body with your query.  
+
+---
+
+## 🤝 Integration with Codehive  
+
+Codehive Genie is integrated as the AI assistant within the **[Codehive](https://github.com/codehiveofficial/codehive)** platform. It powers the AI-driven **Codehive Genie** feature, enabling users to receive coding assistance directly within collaborative rooms.  
+
+---
+
+## 📜 License  
+
+Codehive Genie is licensed under the **[MIT License](https://github.com/codehiveofficial/codehive-genie/blob/main/LICENSE)**.  
