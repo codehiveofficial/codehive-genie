@@ -28,7 +28,7 @@ Codehive Genie is a Python-based Flask API that leverages advanced Large Languag
 
 ### Backend  
 - 🐍 **Flask**: Lightweight and efficient framework for API development.  
-- 🤖 **Groq AI Cloud**: LLM parameterization using **Llama 3.1-70B Versatile**.  
+- 🤖 **Groq AI Cloud**: LLM parameterization using **Llama 3.3-70B Versatile**.  
 - 📚 **Python Libraries**:  
   - 🔄 `flask-cors`: To handle cross-origin requests.  
   - 🔐 `dotenv`: For secure environment variable management.  
